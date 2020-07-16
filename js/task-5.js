@@ -8,18 +8,10 @@ const products = [
 const getAllPropValues = function (arr, prop) {
   const stack = [];
 
-  //   console.log(arr[0]);
-
-  //   console.log(Object.keys(arr[0]));
-
-  //   console.log(Object.values(arr[0]));
   for (const item of arr) {
     if (item[prop] !== undefined) {
       stack.push(item[prop]);
     }
-    // console.log(item);
-    // console.log(item[prop]);
-    // console.log(stack);
   }
   return stack;
 };

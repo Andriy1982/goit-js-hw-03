@@ -6,18 +6,10 @@ const products = [
 ];
 
 const calculateTotalPrice = function (allProducts, productName) {
-  let totalCostProduct;
-
   for (const item of allProducts) {
     if (item.name === productName) {
-      //   console.log(Object.values(item));
       return item.price * item.quantity;
-      //   console.log("Hello");
     }
-    // console.log(Object.keys(item));
-    // console.log(item);
-    // console.log(item[productName]);
-    // console.log(item.name);
   }
 };
 

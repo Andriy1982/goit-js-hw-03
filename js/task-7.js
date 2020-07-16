@@ -21,8 +21,6 @@ const account = {
   createTransaction(amount, type) {
     const id = this.transactions.length + 1;
     const historiTranzactions = { id, amount, type };
-
-    // console.log(this.transactions);
     this.transactions.push(historiTranzactions);
     return historiTranzactions;
   },
@@ -35,8 +33,6 @@ const account = {
    */
   deposit(amount) {
     this.createTransaction(+amount, Transaction.DEPOSIT);
-    // console.log(`Yoy add ${amount} credits`);
-    // return console.log("hello");
     this.balance += +amount;
     console.log(
       `Ви додали ${amount} кредитів, Ваш новий баланс ${this.balance} кредитів`
@@ -54,12 +50,6 @@ const account = {
    * о том, что снятие такой суммы не возможно, недостаточно средств.
    */
   withdraw(amount) {
-    // if (+amount > this.balance) {
-    //   console.log(
-    //     `Not enough credits on your account, Your balance "${this.balance}" credits`
-    //   );
-    //   return this.balance;
-    // }
     this.createTransaction(+amount, Transaction.WITHDRAW);
     this.balance -= +amount;
     console.log(
@@ -80,18 +70,11 @@ const account = {
    */
   getTransactionDetails(id) {
     for (let i = 0; i < this.transactions.length; i += 1) {
-      // console.log(this.transactions[i]);
       if (this.transactions[i].id === id) {
-        // return this.transactions[i];
-        console.log(this.transactions[i]);
+        return console.log(this.transactions[i]);
       }
     }
-    // console.log(transaction);
-    // if (id === transaction[0].id) {
-    //   console.log(transactions);
-    // }
-    // console.log(this.transactions);
-    // return this.transactions.filter(this.transactions.historiTranzactions.id);
+    return console.log("Ви ввели некоректні дані!");
   },
 
   /*
@@ -101,36 +84,22 @@ const account = {
   getTransactionTotal(type) {
     let total = 0;
     for (let i = 0; i < this.transactions.length; i += 1) {
-      // console.log(this.transactions[i].amount);
       if (this.transactions[i].type === type) {
         total += +this.transactions[i].amount;
-        // console.log(this.transactions[i].amount);
-        // console.log(total);
       }
-      // console.log(total);
     }
     return total;
   },
+
+  getTransactionId() {
+    let arrId = [];
+    for (let i = 0; i < this.transactions.length; i += 1) {
+      arrId.push(this.transactions[i].id);
+    }
+    return arrId.toString();
+  },
 };
 
-// console.log(historiTranzactions);
-
-// console.log(account.getBalance());
-
-// console.log(account.createTransaction(100, "deposit"));
-
-// console.log(account.createTransaction(700, "deposit"));
-
-// console.table(account.getTransactions());
-
-// console.log(account.createTransaction(300, "withdraw"));
-
-// // console.table(account.getTransactions());
-
-// console.log(account.createTransaction(500, "deposit"));
-// // console.log(account.createTransaction(100, "deposit"));
-
-// console.log(account.getTransactionTotal("deposit"));
 const buttonBalanceteRef = document.getElementById("balance");
 const buttonDepositeRef = document.getElementById("deposite");
 const buttonWithdrawRef = document.getElementById("withdraw");
@@ -170,15 +139,20 @@ buttonWithdrawRef.addEventListener("click", () => {
 });
 
 buttonTransactionIdteRef.addEventListener("click", () => {
-  let transactionOnId = prompt("Введіть номер транзакції");
-  if (transactionOnId !== null) {
-    return account.getTransactionDetails(+transactionOnId);
+  let transactionNumberId = prompt(
+    `Виберіть номер транзакції з списку: ${account.getTransactionId()}`
+  );
+  if (transactionNumberId !== null) {
+    return account.getTransactionDetails(+transactionNumberId);
   }
 });
 
-// console.table(account.getTransactions());
-// account.deposit(399);
-// account.deposit(500);
-// console.log(account.balance);
-// console.table(account.getTransactions());
-// console.log(account.createTransaction(100, "deposit"));
+buttonTransactionType.addEventListener("click", () => {
+  let transactionOnType = prompt(
+    "Виберіть тип транзакції: deposit чи withdraw"
+  );
+  if (transactionOnType === "deposit" || transactionOnType === "withdraw") {
+    return console.log(account.getTransactionTotal(transactionOnType));
+  }
+  return console.log("Ви ввели некоректні дані!");
+});
