@@ -9,7 +9,8 @@ const getAllPropValues = function (arr, prop) {
   const stack = [];
 
   for (const item of arr) {
-    if (item[prop] !== undefined) {
+    
+    if (item.hasOwnProperty(prop)){
       stack.push(item[prop]);
     }
   }
