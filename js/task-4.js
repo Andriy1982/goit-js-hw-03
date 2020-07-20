@@ -1,9 +1,7 @@
 const countTotalSalary = function (employees) {
-  const arrays = Object.values(employees);
   let result = 0;
-
-  for (const array of arrays) {
-    result += array;
+  for (const item in employees) {
+    result += employees[item];
   }
   return result;
 };
