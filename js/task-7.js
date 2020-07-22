@@ -16,8 +16,7 @@ const account = {
    */
   createTransaction(amount, type) {
     const id = this.transactions.length + 1;
-    const transaction = { id, amount, type };
-    return transaction;
+    return { id, amount, type };
   },
 
   /*
@@ -43,6 +42,7 @@ const account = {
   withdraw(amount) {
     if (amount > this.balance) {
       console.log("Cнятие такой суммы не возможно, недостаточно средств");
+      return;
     }
     this.transactions.push(
       this.createTransaction(amount, Transaction.WITHDRAW)
@@ -61,12 +61,11 @@ const account = {
    * Метод ищет и возвращает объект транзации по id
    */
   getTransactionDetails(id) {
-    for (let i = 0; i < this.transactions.length; i += 1) {
-      if (this.transactions[i].id === id) {
-        return this.transactions[i];
+    for (const transaction of this.transactions) {
+      if (transaction.id === id) {
+        return transaction;
       }
     }
-    return "Транзакции с таким id нет";
   },
 
   /*
@@ -74,10 +73,12 @@ const account = {
    * определенного типа транзакции из всей истории транзакций
    */
   getTransactionTotal(type) {
-    let result = this.transactions.reduce((sum = 0, current) => {
-      return current.type === type ? sum + current.amount : sum;
-    }, 0);
-
+    let result = 0;
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        result += transaction.amount;
+      }
+    }
     return result;
   },
 };
