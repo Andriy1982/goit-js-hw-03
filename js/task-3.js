@@ -1,9 +1,9 @@
 const findBestEmployee = function (employees) {
   let bestEmployee;
-  let bestValue;
+  let bestValue = 0;
 
   for (const employee in employees) {
-    if (employees[employee] > bestValue || !bestValue) {
+    if (employees[employee] > bestValue) {
       bestValue = employees[employee];
       bestEmployee = employee;
     }
